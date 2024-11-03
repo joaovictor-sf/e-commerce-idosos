@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.topicos.idosos.domain.user.User;
+import com.topicos.idosos.domain.User;
 
 @Service
 public class TokenService {
@@ -19,32 +18,45 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String GenerateToken(User user){
-        try{
+    public String generateToken(User user){
+        try {
+            //Algorith cria o token com o algoritmo HMAC256
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
+            //Cria o token com o algoritmo e o usuário
             String token = JWT.create()
-            .withIssuer("login-auth-api")
-            .withExpiresAt(this.generateExpirationDate())
-            .sign(algorithm);
-            
+                    .withIssuer("auth-api")//Emissor do token
+                    .withSubject(user.getEmail())//Sujeito do token
+                    .withExpiresAt(getExpirationDate())//Data de expiração do token
+                    .sign(algorithm);//Assinatura do token
+
             return token;
-        }catch(JWTCreationException exception){
-            throw new RuntimeException("Error generating token");
+        }catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+
+            throw new RuntimeException("Error while generating token", exception);
+
         }
     }
 
     public String validateToken(String token){
-        try{
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.require(algorithm).withIssuer("login-auth-api").build().verify(token).getSubject();
-            
-        }catch(JWTVerificationException exception){
-            throw new RuntimeException("Invalid token");
+
+            //Verifica se o token é válido
+            String subject = JWT.require(algorithm)
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token)
+                    .getSubject();
+            return subject;
+        }catch (JWTCreationException exception){
+            return "";
         }
     }
 
-    private Instant generateExpirationDate(){
+    private Instant getExpirationDate(){
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
+
 }
