@@ -1,10 +1,10 @@
-package com.topicos.idosos;
+package com.idosos.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class IdososApplicationTests {
+class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
