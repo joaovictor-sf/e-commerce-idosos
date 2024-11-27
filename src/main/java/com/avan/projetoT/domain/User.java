@@ -20,9 +20,17 @@ public class User {
     private String endereco;
     private String telefone;
 
-    // Getters e Setters
+    public User() {}
 
-    public Long getId() {
+	public User(String nome, String email, String senha, String endereco, String telefone) {
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.endereco = endereco;
+		this.telefone = telefone;
+	}
+
+	public Long getId() {
         return id;
     }
 

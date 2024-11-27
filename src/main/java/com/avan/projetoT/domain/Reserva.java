@@ -28,7 +28,16 @@ public class Reserva {
     @JoinColumn(name = "usuario_id")
     private User usuario;
 
-    // Getters e Setters
+    public Reserva() {}
+
+	public Reserva(LocalDate dataReserva, String status, Produto produto, User usuario) {
+		this.dataReserva = dataReserva;
+		this.status = status;
+		this.produto = produto;
+		this.usuario = usuario;
+	}
+
+	// Getters e Setters
     public int getId() {
         return id;
     }

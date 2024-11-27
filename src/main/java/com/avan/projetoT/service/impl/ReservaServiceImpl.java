@@ -1,6 +1,7 @@
 package com.avan.projetoT.service.impl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,50 @@ public class ReservaServiceImpl implements ReservaService{
 
     @Autowired
     private UserRepository usuarioRepository; 
+    
+    /*public void criarReserva(Reserva reserva) {
+        reserva.setDataReserva(LocalDate.now());
+        reserva.setStatus("Ativa"); // Setting default status to "Active"
+        reservaRepository.save(reserva);
+    }*/
 
+    public List<Reserva> listarReservas() {
+        return reservaRepository.findAll();
+    }
+
+    public Reserva consultarReserva(int id) {
+        return reservaRepository.findById(id).orElse(null);
+    }
+
+    public Reserva cancelarReserva(int id) {
+        Reserva reserva = consultarReserva(id);
+        if (reserva != null) {
+            reserva.setStatus("Cancelada"); // Update the status instead of deleting
+            reservaRepository.save(reserva);
+        }
+        
+        return reserva;
+        
+    }
+    
+    @Override
+	public Reserva criarReserva(int produtoId, long usuarioId) {
+		Optional<Produto> produto = produtoRepository.findById(produtoId);
+        Optional<User> usuario = usuarioRepository.findById(usuarioId);
+
+        if (produto.isPresent() && usuario.isPresent()) {
+            Reserva reserva = new Reserva();
+            reserva.setProduto(produto.get());
+            reserva.setUsuario(usuario.get());
+            reserva.setDataReserva(LocalDate.now());
+            reserva.setStatus("Pendente");  // O status pode ser "Pendente" ao ser criada
+            return reservaRepository.save(reserva);
+        }
+
+        return null;  // Produto ou usuário não encontrados
+	}
+
+    /*
 	@Override
 	public Reserva criarReserva(int produtoId, long usuarioId) {
 		Optional<Produto> produto = produtoRepository.findById(produtoId);
@@ -60,5 +104,11 @@ public class ReservaServiceImpl implements ReservaService{
 	public Reserva consultarReserva(int id) {
 		return reservaRepository.findById(id).orElse(null);  // Retorna null caso não encontre
 	}
+
+	@Override
+	public List<Reserva> listarReservas() {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 
 }
