@@ -1,6 +1,6 @@
 package com.avan.projetoT.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +23,7 @@ public class Pagamento {
     @Temporal(TemporalType.DATE)
     private Date dataPagamento;
 
-    private String formaPagamento;
+    private FormaPagamento formaPagamento; // DEBITO, CREDITO, BOLETO, PIX
 
     @ManyToOne
     @JoinColumn(name = "reserva_id", nullable = false)
@@ -53,11 +53,11 @@ public class Pagamento {
         this.dataPagamento = dataPagamento;
     }
 
-    public String getFormaPagamento() {
+    public FormaPagamento getFormaPagamento() {
         return formaPagamento;
     }
 
-    public void setFormaPagamento(String formaPagamento) {
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
 
