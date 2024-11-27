@@ -18,7 +18,8 @@ public class Reserva {
 
     private LocalDate dataReserva;
 
-    private String status;  // Pode ser "Pendente", "Confirmada", "Cancelada", etc.
+    //private String status;
+    private ReservaStatus status;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
@@ -30,7 +31,7 @@ public class Reserva {
 
     public Reserva() {}
 
-	public Reserva(LocalDate dataReserva, String status, Produto produto, User usuario) {
+	public Reserva(LocalDate dataReserva, ReservaStatus status, Produto produto, User usuario) {
 		this.dataReserva = dataReserva;
 		this.status = status;
 		this.produto = produto;
@@ -54,11 +55,11 @@ public class Reserva {
         this.dataReserva = dataReserva;
     }
 
-    public String getStatus() {
+    public ReservaStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ReservaStatus status) {
         this.status = status;
     }
 

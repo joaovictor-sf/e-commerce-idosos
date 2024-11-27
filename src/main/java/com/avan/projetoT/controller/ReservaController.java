@@ -33,7 +33,7 @@ public class ReservaController {
         if (reserva != null) {
             return ResponseEntity.ok(reserva);
         } else {
-            return ResponseEntity.badRequest().build();  // Produto ou usuário não encontrado
+            return ResponseEntity.badRequest().build(); 
         }
     }*/
     
@@ -42,9 +42,9 @@ public class ReservaController {
         Reserva reserva = reservaService.criarReserva(reservaRequest.produtoId(), reservaRequest.usuarioId());
 
         if (reserva != null) {
-            return ResponseEntity.status(201).body(reserva); // 201 Created
+            return ResponseEntity.status(201).body(reserva);
         } else {
-            return ResponseEntity.status(404).body(null); // 404 Not Found
+            return ResponseEntity.status(404).body(null);
         }
     }
     
@@ -55,7 +55,6 @@ public class ReservaController {
         return ResponseEntity.ok(reservas);
     }
 
-    // Cancelar uma reserva
     @PutMapping("/{id}/cancelar")
     public ResponseEntity<Reserva> cancelarReserva(@PathVariable int id) {
         Reserva reserva = reservaService.cancelarReserva(id);
@@ -63,11 +62,10 @@ public class ReservaController {
         if (reserva != null) {
             return ResponseEntity.ok(reserva);
         } else {
-            return ResponseEntity.notFound().build();  // Reserva não encontrada
+            return ResponseEntity.notFound().build();
         }
     }
 
-    // Consultar uma reserva
     @GetMapping("/{id}")
     public ResponseEntity<Reserva> consultarReserva(@PathVariable int id) {
         Reserva reserva = reservaService.consultarReserva(id);
@@ -75,7 +73,7 @@ public class ReservaController {
         if (reserva != null) {
             return ResponseEntity.ok(reserva);
         } else {
-            return ResponseEntity.notFound().build();  // Reserva não encontrada
+            return ResponseEntity.notFound().build();
         }
     }
 }

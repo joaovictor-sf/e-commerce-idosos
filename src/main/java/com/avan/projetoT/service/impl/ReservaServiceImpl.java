@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.avan.projetoT.domain.Produto;
 import com.avan.projetoT.domain.Reserva;
+import com.avan.projetoT.domain.ReservaStatus;
 import com.avan.projetoT.domain.User;
 import com.avan.projetoT.repository.ProdutoRepository;
 import com.avan.projetoT.repository.ReservaRepository;
@@ -22,7 +23,7 @@ public class ReservaServiceImpl implements ReservaService{
     private ReservaRepository reservaRepository;
 
     @Autowired
-    private ProdutoRepository produtoRepository;  // Para acessar o Produto
+    private ProdutoRepository produtoRepository;
 
     @Autowired
     private UserRepository usuarioRepository; 
@@ -32,19 +33,22 @@ public class ReservaServiceImpl implements ReservaService{
         reserva.setStatus("Ativa"); // Setting default status to "Active"
         reservaRepository.save(reserva);
     }*/
-
+    
+    @Override
     public List<Reserva> listarReservas() {
         return reservaRepository.findAll();
     }
 
+    @Override
     public Reserva consultarReserva(int id) {
         return reservaRepository.findById(id).orElse(null);
     }
 
+    @Override
     public Reserva cancelarReserva(int id) {
         Reserva reserva = consultarReserva(id);
         if (reserva != null) {
-            reserva.setStatus("Cancelada"); // Update the status instead of deleting
+            reserva.setStatus(ReservaStatus.CANCELADA);
             reservaRepository.save(reserva);
         }
         
@@ -62,11 +66,11 @@ public class ReservaServiceImpl implements ReservaService{
             reserva.setProduto(produto.get());
             reserva.setUsuario(usuario.get());
             reserva.setDataReserva(LocalDate.now());
-            reserva.setStatus("Pendente");  // O status pode ser "Pendente" ao ser criada
+            reserva.setStatus(ReservaStatus.PENDENTE);
             return reservaRepository.save(reserva);
         }
 
-        return null;  // Produto ou usuário não encontrados
+        return null;
 	}
 
     /*
@@ -80,11 +84,11 @@ public class ReservaServiceImpl implements ReservaService{
             reserva.setProduto(produto.get());
             reserva.setUsuario(usuario.get());
             reserva.setDataReserva(LocalDate.now());
-            reserva.setStatus("Pendente");  // O status pode ser "Pendente" ao ser criada
+            reserva.setStatus("Pendente");
             return reservaRepository.save(reserva);
         }
 
-        return null;  // Produto ou usuário não encontrados
+        return null;
 	}
 
 	@Override
@@ -97,12 +101,12 @@ public class ReservaServiceImpl implements ReservaService{
             return reservaRepository.save(reservaExistente);
         }
 
-        return null;  // Reserva não encontrada
+        return null;
 	}
 
 	@Override
 	public Reserva consultarReserva(int id) {
-		return reservaRepository.findById(id).orElse(null);  // Retorna null caso não encontre
+		return reservaRepository.findById(id).orElse(null);
 	}
 
 	@Override

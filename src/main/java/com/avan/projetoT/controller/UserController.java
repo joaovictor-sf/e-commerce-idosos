@@ -1,10 +1,14 @@
 package com.avan.projetoT.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +45,18 @@ public class UserController {
             return ResponseEntity.ok(usuarioAutenticado);
         } else {
             return ResponseEntity.status(401).body(null); // 401 Unauthorized
+        }
+    }
+    
+    @PutMapping("/{usuarioId}")
+    public ResponseEntity<User> atualizarUsuario(@PathVariable long usuarioId, 
+                                                  @RequestBody User usuarioUpdate) {
+        Optional<User> usuarioAtualizado = usuarioService.atualizarUsuario(usuarioId, usuarioUpdate);
+
+        if (usuarioAtualizado.isPresent()) {
+            return ResponseEntity.ok(usuarioAtualizado.get()); // 200 OK
+        } else {
+            return ResponseEntity.status(404).body(null); // 404 Not Found
         }
     }
 }
