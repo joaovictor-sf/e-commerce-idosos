@@ -29,7 +29,7 @@ public class PagamentoServiceImpl implements PagamentoService{
         if (reservaOpt.isPresent()) {
             Pagamento pagamento = new Pagamento();
             pagamento.setValor(valor);
-            pagamento.setDataPagamento(new Date()); // Data atual
+            pagamento.setDataPagamento(new Date());
             pagamento.setFormaPagamento(formaPagamento);
             pagamento.setReserva(reservaOpt.get());
             pagamento.getReserva().setStatus(ReservaStatus.CONFIRMADA);

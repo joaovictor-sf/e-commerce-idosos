@@ -41,7 +41,6 @@ public class Reserva {
 		this.usuario = usuario;
 	}
 
-	// Getters e Setters
     public Long getId() {
         return id;
     }

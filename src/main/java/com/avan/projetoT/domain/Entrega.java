@@ -36,7 +36,6 @@ public class Entrega {
     @JsonIgnore
     private User usuario;
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

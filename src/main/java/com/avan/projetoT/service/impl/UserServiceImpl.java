@@ -44,9 +44,9 @@ public class UserServiceImpl implements UserService{
 	public User autenticarUsuario(String email, String senha) {
 		User usuario = usuarioRepository.findByEmail(email);
         if (usuario != null && usuario.getSenha().equals(senha)) {
-            return usuario; // Login bem-sucedido
+            return usuario;
         }
-        return null; // Login falhou
+        return null;
 	}
 
 	@Override

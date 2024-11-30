@@ -20,28 +20,24 @@ public class ProdutoController {
     @Autowired
     private ProdutoServiceImpl produtoService;
 
-    // Endpoint para cadastrar um novo produto
     @PostMapping("/cadastro")
     public ResponseEntity<Produto> cadastrarProduto(@RequestBody Produto produto) {
         Produto produtoCadastrado = produtoService.cadastrarProduto(produto);
         return ResponseEntity.ok(produtoCadastrado);
     }
 
-    // Endpoint para obter todos os produtos
     @GetMapping
     public ResponseEntity<Iterable<Produto>> obterProdutos() {
         Iterable<Produto> produtos = produtoService.obterTodosProdutos();
         return ResponseEntity.ok(produtos);
     }
 
-    // Endpoint para verificar a disponibilidade de um produto
     @GetMapping("/{id}/disponibilidade")
     public ResponseEntity<Boolean> verificarDisponibilidade(@PathVariable Long id) {
         Boolean disponibilidade = produtoService.verificarDisponibilidade(id);
         return ResponseEntity.ok(disponibilidade);
     }
 
-    // Endpoint para atualizar a disponibilidade do produto
     @PutMapping("/{id}/estoque")
     public ResponseEntity<Produto> atualizarEstoque(@PathVariable Long id, @RequestBody Boolean disponibilidade) {
         Produto produtoAtualizado = produtoService.atualizarEstoque(id, disponibilidade);

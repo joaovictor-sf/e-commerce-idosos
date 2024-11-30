@@ -27,9 +27,9 @@ public class PagamentoController {
         Optional<Pagamento> pagamento = pagamentoService.criarPagamento(pagamentoDTO.reservaId(), pagamentoDTO.valor(), pagamentoDTO.formaPagamento());
 
         if (pagamento.isPresent()) {
-            return ResponseEntity.status(201).body(pagamento.get()); // 201 Created
+            return ResponseEntity.status(201).body(pagamento.get());
         } else {
-            return ResponseEntity.status(404).body(null); // 404 Not Found
+            return ResponseEntity.status(404).body(null);
         }
     }
 
