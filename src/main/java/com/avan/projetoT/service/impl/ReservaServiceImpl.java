@@ -40,12 +40,12 @@ public class ReservaServiceImpl implements ReservaService{
     }
 
     @Override
-    public Reserva consultarReserva(int id) {
+    public Reserva consultarReserva(Long id) {
         return reservaRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Reserva cancelarReserva(int id) {
+    public Reserva cancelarReserva(Long id) {
         Reserva reserva = consultarReserva(id);
         if (reserva != null) {
             reserva.setStatus(ReservaStatus.CANCELADA);
@@ -57,7 +57,7 @@ public class ReservaServiceImpl implements ReservaService{
     }
     
     @Override
-	public Reserva criarReserva(int produtoId, long usuarioId) {
+	public Reserva criarReserva(Long produtoId, Long usuarioId) {
 		Optional<Produto> produto = produtoRepository.findById(produtoId);
         Optional<User> usuario = usuarioRepository.findById(usuarioId);
 

@@ -24,7 +24,7 @@ public class EntregaController {
     private EntregaServiceImpl entregaService;
 
     @PostMapping
-    public ResponseEntity<Entrega> criarEntrega(@RequestParam int reservaId,
+    public ResponseEntity<Entrega> criarEntrega(@RequestParam Long reservaId,
                                                 @RequestParam String enderecoEntrega) {
         Optional<Entrega> entrega = entregaService.criarEntrega(reservaId, enderecoEntrega);
 
@@ -36,7 +36,7 @@ public class EntregaController {
     }
 
     @PutMapping("/{entregaId}/status")
-    public ResponseEntity<Entrega> atualizarStatusEntrega(@PathVariable int entregaId,
+    public ResponseEntity<Entrega> atualizarStatusEntrega(@PathVariable Long entregaId,
                                                           @RequestParam StatusEntrega novoStatus) {
         Optional<Entrega> entregaAtualizada = entregaService.atualizarStatusEntrega(entregaId, novoStatus);
 

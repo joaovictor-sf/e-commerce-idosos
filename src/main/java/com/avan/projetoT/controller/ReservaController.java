@@ -56,7 +56,7 @@ public class ReservaController {
     }
 
     @PutMapping("/{id}/cancelar")
-    public ResponseEntity<Reserva> cancelarReserva(@PathVariable int id) {
+    public ResponseEntity<Reserva> cancelarReserva(@PathVariable Long id) {
         Reserva reserva = reservaService.cancelarReserva(id);
 
         if (reserva != null) {
@@ -67,7 +67,7 @@ public class ReservaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reserva> consultarReserva(@PathVariable int id) {
+    public ResponseEntity<Reserva> consultarReserva(@PathVariable Long id) {
         Reserva reserva = reservaService.consultarReserva(id);
 
         if (reserva != null) {

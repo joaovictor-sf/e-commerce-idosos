@@ -23,7 +23,7 @@ public class PagamentoServiceImpl implements PagamentoService{
     private ReservaRepository reservaRepository;
 
 	@Override
-	public Optional<Pagamento> criarPagamento(int reservaId, Double valor, FormaPagamento formaPagamento) {
+	public Optional<Pagamento> criarPagamento(Long reservaId, Double valor, FormaPagamento formaPagamento) {
 		Optional<Reserva> reservaOpt = reservaRepository.findById(reservaId);
 
         if (reservaOpt.isPresent()) {

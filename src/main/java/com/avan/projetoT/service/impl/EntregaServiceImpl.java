@@ -22,7 +22,7 @@ public class EntregaServiceImpl implements EntregaService{
 	private ReservaRepository reservaRepository;
 
 	@Override
-	public Optional<Entrega> criarEntrega(int reservaId, String enderecoEntrega) {
+	public Optional<Entrega> criarEntrega(Long reservaId, String enderecoEntrega) {
 		Optional<Reserva> reservaOpt = reservaRepository.findById(reservaId);
 
         if (reservaOpt.isPresent()) {
@@ -31,6 +31,7 @@ public class EntregaServiceImpl implements EntregaService{
             entrega.setStatusEntrega(StatusEntrega.AGUARDANDO);
             entrega.setEnderecoEntrega(enderecoEntrega);
             entrega.setReserva(reservaOpt.get());
+            entrega.setUsuario(reservaOpt.get().getUsuario());
             return Optional.of(entregaRepository.save(entrega));
         }
 
@@ -38,7 +39,7 @@ public class EntregaServiceImpl implements EntregaService{
 	}
 
 	@Override
-	public Optional<Entrega> atualizarStatusEntrega(int entregaId, StatusEntrega novoStatus) {
+	public Optional<Entrega> atualizarStatusEntrega(Long entregaId, StatusEntrega novoStatus) {
 		Optional<Entrega> entregaOpt = entregaRepository.findById(entregaId);
 
         if (entregaOpt.isPresent()) {

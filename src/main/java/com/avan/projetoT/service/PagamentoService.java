@@ -7,5 +7,5 @@ import com.avan.projetoT.domain.Pagamento;
 
 public interface PagamentoService {
 	
-    public Optional<Pagamento> criarPagamento(int reservaId, Double valor, FormaPagamento formaPagamento);
+    public Optional<Pagamento> criarPagamento(Long reservaId, Double valor, FormaPagamento formaPagamento);
 }

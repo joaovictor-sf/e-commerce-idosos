@@ -6,7 +6,7 @@ import com.avan.projetoT.domain.Entrega;
 import com.avan.projetoT.domain.StatusEntrega;
 
 public interface EntregaService {
-	public Optional<Entrega> criarEntrega(int reservaId, String enderecoEntrega);
+	public Optional<Entrega> criarEntrega(Long reservaId, String enderecoEntrega);
 
-    public Optional<Entrega> atualizarStatusEntrega(int entregaId, StatusEntrega novoStatus);
+    public Optional<Entrega> atualizarStatusEntrega(Long entregaId, StatusEntrega novoStatus);
 }

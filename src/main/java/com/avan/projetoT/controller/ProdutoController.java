@@ -36,14 +36,14 @@ public class ProdutoController {
 
     // Endpoint para verificar a disponibilidade de um produto
     @GetMapping("/{id}/disponibilidade")
-    public ResponseEntity<Boolean> verificarDisponibilidade(@PathVariable int id) {
+    public ResponseEntity<Boolean> verificarDisponibilidade(@PathVariable Long id) {
         Boolean disponibilidade = produtoService.verificarDisponibilidade(id);
         return ResponseEntity.ok(disponibilidade);
     }
 
     // Endpoint para atualizar a disponibilidade do produto
     @PutMapping("/{id}/estoque")
-    public ResponseEntity<Produto> atualizarEstoque(@PathVariable int id, @RequestBody Boolean disponibilidade) {
+    public ResponseEntity<Produto> atualizarEstoque(@PathVariable Long id, @RequestBody Boolean disponibilidade) {
         Produto produtoAtualizado = produtoService.atualizarEstoque(id, disponibilidade);
         if (produtoAtualizado != null) {
             return ResponseEntity.ok(produtoAtualizado);

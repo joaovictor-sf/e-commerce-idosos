@@ -24,7 +24,7 @@ public class ProdutoServiceImpl implements ProdutoService{
 	}
 
 	@Override
-	public Boolean verificarDisponibilidade(int id) {
+	public Boolean verificarDisponibilidade(Long id) {
 		Produto produto = produtoRepository.findById(id).orElse(null);
         if (produto != null) {
             return produto.verificarDisponibilidade();
@@ -33,7 +33,7 @@ public class ProdutoServiceImpl implements ProdutoService{
 	}
 
 	@Override
-	public Produto atualizarEstoque(int id, Boolean disponibilidade) {
+	public Produto atualizarEstoque(Long id, Boolean disponibilidade) {
 		Produto produto = produtoRepository.findById(id).orElse(null);
         if (produto != null) {
             produto.atualizarEstoque(disponibilidade);

@@ -1,5 +1,6 @@
 package com.avan.projetoT.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.avan.projetoT.domain.Reserva;
 import com.avan.projetoT.domain.User;
+import com.avan.projetoT.domain.dto.ListedEntrega;
+import com.avan.projetoT.domain.dto.ListedReserva;
 import com.avan.projetoT.domain.dto.LoginDTO;
 import com.avan.projetoT.service.UserService;
 import com.avan.projetoT.service.impl.UserServiceImpl;
@@ -31,7 +35,6 @@ public class UserController {
         return ResponseEntity.ok(usuarioCadastrado);
     }
 
-    // Endpoint para obter todos os usuários cadastrados
     @GetMapping
     public ResponseEntity<Iterable<User>> obterUsuarios() {
         Iterable<User> usuarios = usuarioService.obterTodosUsuarios();
@@ -44,19 +47,31 @@ public class UserController {
         if (usuarioAutenticado != null) {
             return ResponseEntity.ok(usuarioAutenticado);
         } else {
-            return ResponseEntity.status(401).body(null); // 401 Unauthorized
+            return ResponseEntity.status(401).body(null);
         }
     }
     
     @PutMapping("/{usuarioId}")
-    public ResponseEntity<User> atualizarUsuario(@PathVariable long usuarioId, 
+    public ResponseEntity<User> atualizarUsuario(@PathVariable Long usuarioId, 
                                                   @RequestBody User usuarioUpdate) {
         Optional<User> usuarioAtualizado = usuarioService.atualizarUsuario(usuarioId, usuarioUpdate);
 
         if (usuarioAtualizado.isPresent()) {
-            return ResponseEntity.ok(usuarioAtualizado.get()); // 200 OK
+            return ResponseEntity.ok(usuarioAtualizado.get());
         } else {
-            return ResponseEntity.status(404).body(null); // 404 Not Found
+            return ResponseEntity.status(404).body(null);
         }
+    }
+    
+    @GetMapping("/{usuarioId}/reservas")
+    public ResponseEntity<List<ListedReserva>> listarReservas(@PathVariable Long usuarioId) {
+    	List<ListedReserva> reservas = usuarioService.listarReservasPorUsuario(usuarioId);
+        return ResponseEntity.ok(reservas);
+    }
+    
+    @GetMapping("/{usuarioId}/entregas")
+    public ResponseEntity<List<ListedEntrega>> listarEntregas(@PathVariable Long usuarioId) {
+    	 List<ListedEntrega> entregas = usuarioService.listarEntregasPorUsuario(usuarioId);
+    	 return ResponseEntity.ok(entregas);
     }
 }

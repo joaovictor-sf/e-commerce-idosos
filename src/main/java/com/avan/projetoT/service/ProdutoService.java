@@ -10,9 +10,9 @@ public interface ProdutoService {
     public Iterable<Produto> obterTodosProdutos();
 
     // Método para verificar a disponibilidade de um produto
-    public Boolean verificarDisponibilidade(int id);
+    public Boolean verificarDisponibilidade(Long id);
 
     // Método para atualizar a disponibilidade do produto
-    public Produto atualizarEstoque(int id, Boolean disponibilidade);
+    public Produto atualizarEstoque(Long id, Boolean disponibilidade);
 
 }

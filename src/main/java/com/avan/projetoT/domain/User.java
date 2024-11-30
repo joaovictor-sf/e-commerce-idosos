@@ -1,9 +1,12 @@
 package com.avan.projetoT.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +22,11 @@ public class User {
     private String senha;
     private String endereco;
     private String telefone;
+    
+    @OneToMany(mappedBy = "usuario")
+    private List<Reserva> reservas;
+    @OneToMany(mappedBy = "usuario")
+    private List<Entrega> entregas;
 
     public User() {}
 
@@ -76,6 +84,22 @@ public class User {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public List<Entrega> getEntregas() {
+		return entregas;
+	}
+
+	public void setEntregas(List<Entrega> entregas) {
+		this.entregas = entregas;
 	}
 
 }

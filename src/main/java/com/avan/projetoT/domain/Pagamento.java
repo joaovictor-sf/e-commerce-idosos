@@ -16,7 +16,7 @@ public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private Double valor;
 
@@ -29,11 +29,11 @@ public class Pagamento {
     @JoinColumn(name = "reserva_id", nullable = false)
     private Reserva reserva;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

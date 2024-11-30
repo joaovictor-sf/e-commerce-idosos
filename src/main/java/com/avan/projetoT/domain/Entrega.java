@@ -2,6 +2,8 @@ package com.avan.projetoT.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,7 @@ public class Entrega {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	private Long id;
 
     @Temporal(TemporalType.DATE)
     private Date dataEntrega;
@@ -28,13 +30,18 @@ public class Entrega {
     @ManyToOne
     @JoinColumn(name = "reserva_id", nullable = false)
     private Reserva reserva;
+    
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    @JsonIgnore
+    private User usuario;
 
     // Getters e Setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,5 +76,13 @@ public class Entrega {
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
     }
+
+	public User getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(User usuario) {
+		this.usuario = usuario;
+	}
 
 }
